@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kanban</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6C<span>A fazer</span>i6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <!-- Header -->
+    <header class="container-fluid bg-black p-3">
+        <div class="row">
+            <div class="col-2 d-flex justify-content-start align-items-center">
+                <h2 class="mx-5"><a class="nav-link text-light" href="/kanban/">Kanban</a></h2>
+            </div>
+            <div class="col d-flex justify-content-end align-items-center text-light">
+                <span><a class="nav-link text-secondary mx-4" href="/kanban/membros/">Membros</a></span>
+                <span><a class="nav-link text-secondary mx-4" href="/kanban/">Minhas Tarefas</a></span>
+                <span><a class="nav-link text-secondary mx-4" href="/kanban/tarefas-enviadas/">Tarefas Enviadas</a></span>
+                <span><a class="nav-link text-secondary mx-4" href="/kanban/criartarefa/">Criar Tarefa</a></span>
+                <span><a class="nav-link text-secondary mx-4" href="/">Sair</a></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Container de Tarefas -->
+    <div class="container-fluid mt-3 p-2">
+        <div class="row">
+          <% if (typeof tarefas_enviadas !== 'undefined') { %>
+
+              <!-- Seção de tarefas "A fazer" que foram enviadas pelo usuário -->
+              <section class="col p-3">
+                <h6 class="text-secondary bg-black p-1 px-3 rounded text-light">A fazer - <%= tarefas_afazer.length %></h6>
+                <% for (tarefa of tarefas_afazer) { %>
+                  <span style="color: gray; font-size: 8pt;" class="mt-1">Para: <%=tarefa.destinatario%></span>
+                  <div class="container rounded text-light mb-2 p-1 px-3" style="background-color: <%=tarefa.urgencia%>;">
+                    <a class="nav-link" href="/kanban/atualizartarefa/<%=tarefa._id%>"><%=tarefa.titulo%></a>
+                  </div>
+                <% } %>
+              </section>
+
+              <!-- Seção de tarefas "Fazendo" que foram enviadas pelo usuário -->
+              <section class="col p-3">
+                <h6 class="text-secondary bg-black p-1 px-3 rounded text-light">Fazendo - <%= tarefas_fazendo.length %></h6>
+                <% for (tarefa of tarefas_fazendo) { %>
+                  <span style="color: gray; font-size: 8pt;" class="mt-1">Para: <%=tarefa.destinatario%></span>
+                  <div class="container rounded text-light mb-2 p-1 px-3" style="background-color: <%=tarefa.urgencia%>;">
+                    <a class="nav-link" href="/kanban/atualizartarefa/<%=tarefa._id%>"><%=tarefa.titulo%></a>
+                  </div>
+                <% } %>
+              </section>
+
+              <!-- Seção de tarefas "Aguardando" que foram enviadas pelo usuário -->
+              <section class="col p-3">
+                <h6 class="text-secondary bg-black p-1 px-3 rounded text-light">Aguardando - <%= tarefas_aguardando.length %></h6>
+                <% for (tarefa of tarefas_aguardando) { %>
+                  <span style="color: gray; font-size: 8pt;" class="mt-1">Para: <%=tarefa.destinatario%></span>
+                  <div class="container rounded text-light mb-2 p-1 px-3" style="background-color: <%=tarefa.urgencia%>;">
+                    <a class="nav-link" href="/kanban/atualizartarefa/<%=tarefa._id%>"><%=tarefa.titulo%></a>
+                  </div>
+                <% } %>
+              </section>
+
+              <!-- Seção de tarefas "Feito" que foram enviadas pelo usuário -->
+              <section class="col p-3">
+                <h6 class="text-secondary bg-black p-1 px-3 rounded text-light">Feito - <%= tarefas_feito.length %></h6>
+                <% for (tarefa of tarefas_feito) { %>
+                  <span style="color: gray; font-size: 8pt;" class="mt-1">Para: <%=tarefa.destinatario%></span>
+                  <div class="container rounded text-light mb-2 p-1 px-3" style="background-color: <%=tarefa.urgencia%>;">
+                    <a class="nav-link" href="/kanban/atualizartarefa/<%=tarefa._id%>"><%=tarefa.titulo%></a>
+                  </div>
+                <% } %>
+              </section>
+
+              <!-- Seção de tarefas "Cancelado" que foram enviadas pelo usuário -->
+              <section class="col p-3">
+                <h6 class="text-secondary bg-black p-1 px-3 rounded text-light">Cancelado - <%= tarefas_cancelado.length %></h6>
+                <% for (tarefa of tarefas_cancelado) { %>
+                  <span style="color: gray; font-size: 8pt;" class="mt-1">Para: <%=tarefa.destinatario%></span>
+                  <div class="container rounded text-light mb-2 p-1 px-3" style="background-color: <%=tarefa.urgencia%>;">
+                    <a class="nav-link" href="/kanban/atualizartarefa/<%=tarefa._id%>"><%=tarefa.titulo%></a>
+                  </div>
+                <% } %>
+              </section>
+
+            <% } else { %>
+
+              <!-- Seção de tarefas "A fazer" que foram recebidas pelo usuário -->
+              <section class="col p-3">
+                <h6 class="text-secondary bg-black p-1 px-3 rounded text-light">A fazer - <%= tarefas_afazer.length %></h6>
+                <% for (tarefa of tarefas_afazer) { %>
+                  <span style="color: gray; font-size: 8pt;" class="mt-1">De: <%=tarefa.remetente%></span>
+                  <div class="container rounded text-light mb-2 p-1 px-3" style="background-color: <%=tarefa.urgencia%>;">
+                    <a class="nav-link" href="/kanban/atualizartarefa/<%=tarefa._id%>"><%=tarefa.titulo%></a>
+                  </div>
+                <% } %>
+              </section>
+              
+              <!-- Seção de tarefas "Fazendo" que foram recebidas pelo usuário -->
+              <section class="col p-3">
+                <h6 class="text-secondary bg-black p-1 px-3 rounded text-light">Fazendo - <%= tarefas_fazendo.length %></h6>
+                <% for (tarefa of tarefas_fazendo) { %>
+                  <span style="color: gray; font-size: 8pt;" class="mt-1">De: <%=tarefa.remetente%></span>
+                  <div class="container rounded text-light mb-2 p-1 px-3" style="background-color: <%=tarefa.urgencia%>;">
+                    <a class="nav-link" href="/kanban/atualizartarefa/<%=tarefa._id%>"><%=tarefa.titulo%></a>
+                  </div>
+                <% } %>
+              </section>
+
+              <!-- Seção de tarefas "Aguardando" que foram recebidas pelo usuário -->
+              <section class="col p-3">
+                <h6 class="text-secondary bg-black p-1 px-3 rounded text-light">Aguardando - <%= tarefas_aguardando.length %></h6>
+                <% for (tarefa of tarefas_aguardando) { %>
+                  <span style="color: gray; font-size: 8pt;" class="mt-1">De: <%=tarefa.remetente%></span>
+                  <div class="container rounded text-light mb-2 p-1 px-3" style="background-color: <%=tarefa.urgencia%>;">
+                    <a class="nav-link" href="/kanban/atualizartarefa/<%=tarefa._id%>"><%=tarefa.titulo%></a>
+                  </div>
+                <% } %>
+              </section>
+
+              <!-- Seção de tarefas "Feito" que foram recebidas pelo usuário -->
+              <section class="col p-3">
+                <h6 class="text-secondary bg-black p-1 px-3 rounded text-light">Feito - <%= tarefas_feito.length %></h6>
+                <% for (tarefa of tarefas_feito) { %>
+                  <span style="color: gray; font-size: 8pt;" class="mt-1">De: <%=tarefa.remetente%></span>
+                  <div class="container rounded text-light mb-2 p-1 px-3" style="background-color: <%=tarefa.urgencia%>;">
+                    <a class="nav-link" href="/kanban/atualizartarefa/<%=tarefa._id%>"><%=tarefa.titulo%></a>
+                  </div>
+                <% } %>
+              </section>
+
+              <!-- Seção de tarefas "Cancelado" que foram recebidas pelo usuário -->
+              <section class="col p-3">
+                <h6 class="text-secondary bg-black p-1 px-3 rounded text-light">Cancelado - <%= tarefas_cancelado.length %></h6>
+                <% for (tarefa of tarefas_cancelado) { %>
+                  <span style="color: gray; font-size: 8pt;" class="mt-1">De: <%=tarefa.remetente%></span>
+                  <div class="container rounded text-light mb-2 p-1 px-3" style="background-color: <%=tarefa.urgencia%>;">
+                    <a class="nav-link" href="/kanban/atualizartarefa/<%=tarefa._id%>"><%=tarefa.titulo%></a>
+                  </div>
+                <% } %>
+              </section>
+              
+            <% } %>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kanban</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6C<span>A fazer</span>i6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <!-- Header -->
+    <header class="container-fluid bg-black p-3">
+        <div class="row">
+            <div class="col-2 d-flex justify-content-start align-items-center">
+                <h2 class="mx-5"><a class="nav-link text-light" href="/kanban/">Kanban</a></h2>
+            </div>
+            <div class="col d-flex justify-content-end align-items-center text-light">
+              <span><a class="nav-link text-secondary mx-4" href="/kanban/membros/">Membros</a></span>
+              <span><a class="nav-link text-secondary mx-4" href="/kanban/">Minhas Tarefas</a></span>
+              <span><a class="nav-link text-secondary mx-4" href="/kanban/tarefas-enviadas/">Tarefas Enviadas</a></span>
+              <span><a class="nav-link text-secondary mx-4" href="/kanban/criartarefa/">Criar Tarefa</a></span>
+              <span><a class="nav-link text-secondary mx-4" href="/">Sair</a></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-2"></div>
+            <div class="col-8 p-5">
+              
+                <div class="row justify-content-center">
+                    <section class="col-5">
+
+                      <!-- Seção de "alert" -->
+                        <% if ( typeof alertType !== 'undefined' && typeof alertText !== 'undefined' ) { %>
+                            <div class="alert alert-<%=alertType%> alert-dismissible" style="display: block;">
+                                <%=alertText%>
+                                <button class="btn btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        <% } %>
+
+                        <!-- Formulário para Criar Tarefa -->
+                        <form action="/kanban/criartarefa/" method="post">
+
+                            <!-- Título do .ejs -->
+                            <h1 class="mb-4 mt-4">Criar Tarefa</h1>
+
+                            <!-- Escolher para quem enviar -->
+                            <div class="mb-3">
+                              <label for="destinatario-da-tarefa" class="form-label">Para:</label>
+                              <select required id="destinatario-da-tarefa" name="destinatario-da-tarefa" class="form-select">
+                                <% if (typeof destinatarios !== 'undefined') { %>
+                                  <% for (destinatario of destinatarios) { %>
+                                    <option><%=destinatario.usuario%></option>
+                                  <% } %>
+                                <% } %>
+                              </select>
+                            </div>
+
+                            <!-- Informar o título da tarefa -->
+                            <div class="mb-3">
+                              <label for="titulo-da-tarefa" class="form-label">Título:</label>
+                              <input required type="text" class="form-control" id="titulo-da-tarefa" name="titulo-da-tarefa" maxlength="30">
+                            </div>
+
+                            <!-- Informar a descrição da tarefa -->
+                            <div class="form-floating">
+                              <textarea class="form-control" id="descricao-da-tarefa" name="descricao-da-tarefa" required></textarea>
+                              <label for="descricao-da-tarefa">Descrição</label>
+                            </div><br>
+
+                            <!-- informar a situação da tarefa -->
+                            <div class="mb-3">
+                                <label for="situacao-da-tarefa" class="form-label">Situação:</label>
+                                <select required id="situacao-da-tarefa" name="situacao-da-tarefa" class="form-select">
+                                  <option disabled selected>Nenhuma opção selecionada</option>
+                                  <option>A fazer</option>
+                                  <option>Fazendo</option>
+                                  <option>Aguardando</option>
+                                  <option>Feito</option>
+                                  <option>Cancelado</option>
+                                </select>
+                            </div>
+
+                            <!-- Informar o nível de urgência para realizar a tarefa -->
+                            <div class="mb-3">
+                                <label for="urgencia-da-tarefa" class="form-label">Urgência:</label>
+                                <select required id="urgencia-da-tarefa" name="urgencia-da-tarefa" class="form-select">
+                                  <option disabled selected>Nenhuma opção selecionada</option>
+                                  <option>⬛ Urgente</option>
+                                  <option>🟥 Alta</option>
+                                  <option>🟨 Média</option>
+                                  <option>🟩 Baixa</option>
+                                </select>
+                            </div>
+
+                            <!-- Botão para enviar o formulário -->
+                            <button type="submit" class="btn btn-primary">Criar</button>
+
+                          </form>
+                    </section>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
