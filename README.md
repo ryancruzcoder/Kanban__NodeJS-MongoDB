@@ -15,11 +15,11 @@
 <ol dir="auto">
 <li>
 <p dir="auto">Clique no botão verde para fazer o download</p>
-<p dir="auto"><img src="./source/frontend/public/assets/arts/step1.png" alt="Step1"style="max-width: 100%;"></p>
+<p dir="auto"><img src="./source/public/assets/arts/step1.png" alt="Step1"style="max-width: 100%;"></p>
 </li>
 <li>
 <p dir="auto">Clique em Download ZIP</p>
-<p dir="auto"<p dir="auto"><img src="./source/frontend/public/assets/arts/step2.png" alt="Step2"style="max-width: 100%;"></p></p>
+<p dir="auto"<p dir="auto"><img src="./source/public/assets/arts/step2.png" alt="Step2"style="max-width: 100%;"></p></p>
 </li>
 </ol>
 
